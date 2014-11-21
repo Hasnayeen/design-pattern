@@ -10,4 +10,4 @@ contains solution code suggested by that particular pattern.
 
 there is no explanation for the pattern or examples. to learn design pattern go to http://architecture.howtocode.com.bd/index.html .
 
-as i'm a newbie you may find errors in the code. if you find any error feel free to correct it by pull request.
+as i'm a newbie you may find errors in the code. if you do feel free to correct it by pull request.
