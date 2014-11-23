@@ -1,5 +1,5 @@
 <?php
-class Person{
+class Person implements ActionDecorator{
 	private $name;
 
 	public function __construct($name){
@@ -11,15 +11,16 @@ class Person{
 	}
 }
 
-abstract class ActionDecorator{
-	public abstract function action();
+interface ActionDecorator{
+	public function action();
 }
 
-class Talk extends ActionDecorator{
+class Talk implements ActionDecorator{
 	private $person;
 
-	public function __construct(Person $person){
-		$this->person = $person;
+	public function __construct(ActionDecorator $actionDecorator){
+		$this->person = $actionDecorator;
+		$this->person->action();
 	}
 
 	public function action(){
@@ -27,11 +28,12 @@ class Talk extends ActionDecorator{
 	}
 }
 
-class Walk extends ActionDecorator{
+class Walk implements ActionDecorator{
 	public $person;
 
-	public function __construct(Person $person){
-		$this->person = $person;
+	public function __construct(ActionDecorator $actionDecorator){
+		$this->person = $actionDecorator;
+		$this->person->action();
 	}
 
 	public function action(){
@@ -39,12 +41,13 @@ class Walk extends ActionDecorator{
 	}
 }
 
-class Run extends ActionDecorator{
+class Run implements ActionDecorator{
 
 	public $person;
 
-	public function __construct(Person $person){
-		$this->person = $person;
+	public function __construct(ActionDecorator $actionDecorator){
+		$this->person = $actionDecorator;
+		$this->person->action();
 	}
 
 	public function action(){
@@ -52,11 +55,8 @@ class Run extends ActionDecorator{
 	}
 }
 
-$person = new Person("nehal");
-$walk = new Walk($person);
-$walk->action();
-echo "<br>";
-$talk = new Talk($person);
-$talk->action();
-echo "<br>";
-$person->action().$talk->action().$walk->action();
+$person = new Person("john doe");
+$person = new Walk($person);
+$person = new Talk($person);
+$person = new Run($person);
+$person->action();
